@@ -84,3 +84,28 @@ Animate this character disappointed, 4-frame loop: shoulders drop, head tilts do
 ```
 [Style anchor] Small hole in the ground seen from the side where a rope enters the earth, about 28px wide: a dark opening with a rim ring and a few small pebbles and moss, four versions by material: (1) rough wooden collar, (2) riveted steel ring, (3) stone ring, (4) brass ring with a gold inlay. Transparent background.
 ```
+
+## B v2 — Animate xoay tay quay, tay đi đúng vòng tròn của máy (thay bản B cũ)
+Hình học (khớp mockup): nhân vật đứng bên TRÁI cuộn dây, quay mặt sang PHẢI. Trục tay quay nằm trước bụng nhân vật, ngang thắt lưng. Tay quay xoay THEO CHIỀU KIM ĐỒNG HỒ (nhìn từ phía người xem), 8 frame, mỗi frame 45°. Game đồng bộ frame theo góc quay của máy, nên frame 1 phải là tay ở vị trí 12 giờ.
+
+| Frame | Vị trí tay (đồng hồ) | Thân người |
+|---|---|---|
+| 1 | 12 giờ, cao nhất | thẳng, nhô lên 1px |
+| 2 | 1 giờ 30 | nghiêng tới nhẹ |
+| 3 | 3 giờ, xa nhất | nghiêng tới nhiều nhất, tay duỗi |
+| 4 | 4 giờ 30 | nghiêng tới, bắt đầu hạ |
+| 5 | 6 giờ, thấp nhất | cúi thấp nhất, hạ 2px |
+| 6 | 7 giờ 30 | bắt đầu ngả về |
+| 7 | 9 giờ, gần người nhất | ngả về, khuỷu gập |
+| 8 | 10 giờ 30 | đứng lên lại |
+
+**Bản A (đề xuất): vẽ luôn tay quay trong animation** để tay và tay quay khớp tuyệt đối. Máy cuộn dây sẽ xuất bản không có tay quay.
+```
+Animate this character turning a hand crank, side view facing right, 8-frame loop, 45 degrees per frame, clockwise as seen by the viewer. Draw the crank as part of the animation: a fixed axle point in front of the character's belly at waist height, a short dark iron crank arm about one third of the head width long, and a small wooden handle at its end. Both hands grip the wooden handle in every frame and follow it exactly around the circle. Frame 1: handle at 12 o'clock (top), body upright, raised 1px. Frame 2: handle at 1:30, body leans forward slightly. Frame 3: handle at 3 o'clock (farthest from the body), arms fully extended, maximum forward lean. Frame 4: handle at 4:30, still leaning forward, starting to lower. Frame 5: handle at 6 o'clock (bottom), deepest crouch, body lowered 2px, knees bent. Frame 6: handle at 7:30, body starts to pull back. Frame 7: handle at 9 o'clock (closest to the body), elbows bent, body leaning back slightly. Frame 8: handle at 10:30, rising back toward frame 1. The axle point stays at exactly the same pixel position in all 8 frames. Feet stay planted at the same pixels in all frames. Same head size, same face (simple vertical black oval eyes, no eyebrows), same outline and colours, same frame size, transparent background.
+```
+
+**Bản B: tay quay vô hình** (máy giữ tay quay riêng, khó khớp hơn):
+```
+Animate this character turning an invisible hand crank, side view facing right, 8-frame loop, 45 degrees per frame, clockwise as seen by the viewer. Both hands are closed together around one invisible handle and trace a perfect circle in front of the belly at waist height, radius about one third of the head width, centred on a fixed point that never moves. Frame 1: hands at 12 o'clock, body upright, raised 1px. Frame 2: 1:30, slight forward lean. Frame 3: 3 o'clock, arms fully extended, maximum forward lean. Frame 4: 4:30, starting to lower. Frame 5: 6 o'clock, deepest crouch, body lowered 2px. Frame 6: 7:30, pulling back. Frame 7: 9 o'clock, elbows bent close to the body. Frame 8: 10:30, rising back. Hands are not fists and never punch forward; the motion is a smooth circle. Feet planted at the same pixels in all frames. Same head size, same face (simple vertical black oval eyes, no eyebrows), same outline and colours, same frame size, transparent background.
+```
+Kiểm tra sau khi tạo: xếp 8 frame chồng lên nhau, vị trí tay phải vẽ thành một vòng tròn đều; trục (bản A) và bàn chân không được xê dịch pixel nào.
