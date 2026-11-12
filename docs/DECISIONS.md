@@ -97,3 +97,9 @@ Tạo cộng đồng trade quanh livestream. Game chỉ trình diễn, MT5 là n
 - Thợ đào mũ đỏ được thay bằng nhân vật tóc đen, áo khoác xanh kiểu tài xế giao hàng (không logo), vẫn đeo cuộn dây trên vai.
 - Animation xoay tay quay tạm dùng bộ 8 frame `assets/main-character/rider-crank/` (ô đầu hàng trên của mỗi file xuất). Còn hạn chế: tay chưa vẽ vòng tròn rõ, vài frame có lông mày, cỡ lớn hơn các nhân vật khác. Cần tạo lại theo prompt Animate mới trong `docs/ART_PROMPTS.md` khi có thời gian.
 - Trong mockup, frame được chọn theo góc quay của tay quay; khi không có lệnh thì đứng idle (frame 1).
+
+### Đổi từ R sang số tiền thật (CHỐT, 12/11/2026)
+- Kết quả từng lệnh, rương kết quả, P/L phiên và tổng kết đều hiển thị bằng USD lãi/lỗ của lệnh đó, không dùng R.
+- Bảng quy đổi vật phẩm theo USD (ví dụ đang dùng trong mockup, CHƯA CHỐT): kim cương lời ≥ +$30, vàng lời < +$30, đá ±$0.50, giày lỗ < $30, bom lỗ ≥ $30. Ngưỡng nằm trong hằng số `TH` ở mockup, sẽ thành file cấu hình.
+- Vẫn giữ: không hiển thị Balance, Equity, Margin, lot. P/L chỉ hiện sau khi MT5 xác nhận đóng.
+- Ghi chú rủi ro: số USD cho phép suy ra quy mô tài khoản; không so sánh công bằng giữa các tài khoản trong cuộc thi Giai đoạn 2/3 (lúc đó vẫn cần % hoặc R nội bộ để xếp hạng); hiển thị lãi liên tục có thể bị coi là quảng bá lợi nhuận, cần kèm disclaimer cố định và đọc guidelines nền tảng.

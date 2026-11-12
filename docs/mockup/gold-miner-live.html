@@ -89,11 +89,11 @@ small{color:var(--mist)}
 
     <h2>Bảng quy đổi (ví dụ, chưa chốt)</h2>
     <ul class="legend">
-      <li><b>Kim cương</b> từ +1.5R trở lên</li>
-      <li><b>Vàng</b> lời dưới +1.5R</li>
-      <li><b>Đá</b> hòa vốn, trong khoảng ±0.1R</li>
-      <li><b>Giày cũ</b> lỗ dưới 1.5R</li>
-      <li><b>Bom</b> lỗ từ 1.5R trở lên, hầm sập một đoạn</li>
+      <li><b>Kim cương</b> lời từ +$30 trở lên</li>
+      <li><b>Vàng</b> lời dưới +$30</li>
+      <li><b>Đá</b> hòa vốn, trong khoảng ±$0.50</li>
+      <li><b>Giày cũ</b> lỗ dưới $30</li>
+      <li><b>Bom</b> lỗ từ $30 trở lên, hầm sập một đoạn</li>
     </ul>
   </div>
 </div>
@@ -130,7 +130,7 @@ const TEA_STALL_X=704,SIT_NAMES=[2,3,4];
 const NAMES=['minhquan.fx','thao_gold','be_na','hoangtrader','linhchi99','ducpips','an.nhien','tuan_xau','mai.candle','khoa_scalp','ngocbich','phuc.long'];
 
 const S={screen:'select',sel:0,t:0,ropes:[],nextId:1,queue:[],reveal:null,chest:null,digR:0,digCount:0,digNo:7,
-  depth:128,record:214,scroll:0,sessionR:3.2,inv:{gold:3,diamond:1,rock:2,boot:1,bomb:0},offline:false,shake:0,
+  depth:128,record:214,scroll:0,sessionR:64.2,inv:{gold:3,diamond:1,rock:2,boot:1,bomb:0},offline:false,shake:0,
   mood:0,moodT:0,companion:null,spin:null,coop:.42,weather:'auto',tod:'auto',rain:0,fog:.35,wind:.5,night:0,dawn:0,
   chat:[],votes:{gold:0,diamond:0,rock:0,boot:0,bomb:0},
   bike:null,bkt:4,tier:0,mAng:0,mActive:false,birds:[],walkers:[],smoke:[],bt:3,wt:5,
@@ -143,7 +143,8 @@ function txt(s,x,y,size=28,color=C.text,align='left'){ctx.font=F(size);ctx.fillS
 function shadowTxt(s,x,y,size,color,align){txt(s,x+2,y+2,size,'rgba(0,0,0,.7)',align);txt(s,x,y,size,color,align);}
 function glow(x,y,r,color,a){const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,color);g.addColorStop(1,'rgba(0,0,0,0)');ctx.save();ctx.globalAlpha=a;ctx.globalCompositeOperation='lighter';ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);ctx.restore();}
 function sprite(name,cx,by,scale=1,flip=false){const im=IMG[name];const w=im.width*scale,h=im.height*scale;ctx.save();ctx.translate(Math.round(cx),Math.round(by));if(flip)ctx.scale(-1,1);ctx.drawImage(im,-w/2,-h,w,h);ctx.restore();}
-function fmtR(r){return (r>=0?'+':'−')+Math.abs(r).toFixed(1)+'R';}
+const TH={diamond:30,flat:.5,bomb:30}; // ngưỡng USD, ví dụ chưa chốt
+function fmtR(r){return (r>=0?'+$':'−$')+Math.abs(r).toFixed(2);}
 function hms(s){s=Math.max(0,Math.floor(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return [h,m,x].map(v=>String(v).padStart(2,'0')).join(':');}
 function ms(s){s=Math.max(0,Math.floor(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 
@@ -385,7 +386,7 @@ function drawCam(t){
 function dim(a,y0=SCN,y1=H){ctx.fillStyle=`rgba(5,8,13,${a})`;ctx.fillRect(0,y0,W,y1-y0);}
 function drawReveal(t){
   const rv=S.reveal;if(!rv)return;const k=clamp(rv.t/.35,0,1);const cx=lerp(rv.x,612,k),cy=lerp(rv.y,SCN+160,k)+Math.sin(t*3)*4;
-  const good=rv.R>.1,bad=rv.R<-.1;glow(cx,cy-40,150,good?'#f6c25a':bad?'#b5533c':'#8fb0b3',.5);
+  const good=rv.R>TH.flat,bad=rv.R<-TH.flat;glow(cx,cy-40,150,good?'#f6c25a':bad?'#b5533c':'#8fb0b3',.5);
   sprite(rv.item,cx,cy+20,1.5);
   if(k>=1){box(452,SCN+214,320,112,'rgba(14,23,29,.94)',good?C.amber:bad?C.clay:C.line);
     txt(ITEMS[rv.item],612,SCN+250,38,good?C.amber:bad?'#e08a70':C.text,'center');
@@ -394,7 +395,7 @@ function drawReveal(t){
 function drawChest(t){
   const c=S.chest;if(!c)return;dim(.55,SCN,PANEL);const cx=408,cy=GND+210;
   if(c.t<1.3){const sh=Math.sin(c.t*40)*c.t*6;glow(cx,cy-60,170,'#f0a83a',.3);sprite('sack',cx+sh,cy,2.2);shadowTxt('TÚI KẾT QUẢ LƯỢT #'+S.digNo,cx,cy+60,34,C.text,'center');}
-  else{const good=c.R>.1,bad=c.R<-.1;glow(cx,cy-70,230,good?'#f6c25a':bad?'#b5533c':'#8fb0b3',.6);sprite(c.item,cx,cy,2.4+.06*Math.sin(t*5));
+  else{const good=c.R>TH.flat,bad=c.R<-TH.flat;glow(cx,cy-70,230,good?'#f6c25a':bad?'#b5533c':'#8fb0b3',.6);sprite(c.item,cx,cy,2.4+.06*Math.sin(t*5));
     box(208,cy+24,400,118,'rgba(14,23,29,.95)',good?C.amber:bad?C.clay:C.line);txt('LƯỢT ĐÀO #'+S.digNo,cx,cy+60,30,C.mist,'center');
     txt(fmtR(c.R),cx,cy+100,50,good?C.amber:bad?'#e08a70':C.text,'center');txt(c.n+' dây  ·  độ sâu '+(c.dd>=0?'+':'−')+Math.abs(c.dd)+'m',cx,cy+130,24,C.mist,'center');}
 }
@@ -455,11 +456,11 @@ function openRope(side){
   const used=same.map(r=>r.slot);let slot=0;while(used.includes(slot))slot++;
   S.ropes.push({id:S.nextId++,side,slot,born:S.t,len:0,max:rnd(350,470),state:'down',ph:rnd(0,9),float:rnd(-.5,.5)});S.digCount++;
 }
-function itemFor(R){return R>=1.5?'diamond':R>.1?'gold':R>=-.1?'rock':R>-1.5?'boot':'bomb';}
+function itemFor(R){return R>=TH.diamond?'diamond':R>TH.flat?'gold':R>=-TH.flat?'rock':R>-TH.bomb?'boot':'bomb';}
 function closeRope(kind){
   if(S.offline||S.screen!=='play')return;const r=S.ropes.find(r=>r.state==='down');if(!r)return;
-  const R={win:rnd(.3,1.4),big:rnd(1.6,2.8),even:rnd(-.08,.08),loss:rnd(-1.3,-.3),bomb:rnd(-2.6,-1.6)}[kind];
-  r.state='queued';r.R=Math.round(R*10)/10;r.item=itemFor(r.R);S.queue.push(r);
+  const R={win:rnd(6,28),big:rnd(32,56),even:rnd(-.4,.4),loss:rnd(-26,-6),bomb:rnd(-52,-32)}[kind];
+  r.state='queued';r.R=Math.round(R*100)/100;r.item=itemFor(r.R);S.queue.push(r);
 }
 function setScreen(s){
   S.screen=s;for(const b of document.querySelectorAll('#tabs button'))b.setAttribute('aria-pressed',b.dataset.s===s);
@@ -472,7 +473,7 @@ const NOTES={
   lobby:'Sảnh chờ trước giờ live: đếm ngược, kỷ lục cần phá, luật chơi trong ba dòng và dòng miễn trừ trách nhiệm cố định.',
   play:'Gameplay. Bấm "Mở lệnh / DCA" để thả dây vào vùng tối, rồi đóng dây để kéo vật phẩm lên. Khi đóng hết dây, túi kết quả của cả lượt mở ra. Biểu đồ chỉ hiện giá, không hiện vị thế. Đổi skin máy đào để xem cuộn dây và máy thay đổi theo cấp. Máy cấp thường và cấp tốt thì nhân vật cúi xuống xoay tay quay. Phía sau là quán trà đá: ba người ngồi ghế nhựa đỏ, chủ quán lau bàn, hai người đi qua lại. Năm người (hai đi, ba ngồi) là top 5 người đoán trúng nhiều nhất, tên và thứ hạng hiện trên đầu. Thỉnh thoảng có xe máy phóng qua.',
   spin:'Sau mỗi lượt hoặc theo mốc thời gian: quay ngẫu nhiên trong top 5 người đoán giỏi nhất. Người trúng xuất hiện cạnh thợ đào với tên của họ.',
-  summary:'Màn tổng kết cuối event, bố cục gọn để người xem chụp lại và chia sẻ. Kết quả tính bằng R, không hiện số tiền.'};
+  summary:'Màn tổng kết cuối event, bố cục gọn để người xem chụp lại và chia sẻ. Kết quả hiển thị bằng số tiền lãi hoặc lỗ của từng lệnh (USD).'};
 
 function update(dt){
   const t=S.t;
@@ -502,10 +503,10 @@ function update(dt){
   const p=S.queue[0];
   if(p&&p.state==='pull'){p.pt+=dt;const kk=clamp(p.pt/1.5,0,1);p.len=lerp(p.l0,70,kk*kk*(3-2*kk));
     if(kk>=1){S.queue.shift();S.ropes.splice(S.ropes.indexOf(p),1);S.reveal={t:0,x:p.endX,y:p.endY,item:p.item,R:p.R,id:p.id,clock:S.clock};
-      S.mood=p.R>.1?1:p.R<-.1?-1:0;S.moodT=p.R===0?0:1.1;if(p.item==='bomb'&&!reduced)S.shake=.6;}}
-  if(S.reveal){const rv=S.reveal;rv.t+=dt;if(rv.t>2.6){S.inv[rv.item]++;S.sessionR=Math.round((S.sessionR+rv.R)*10)/10;S.digR=Math.round((S.digR+rv.R)*10)/10;
+      S.mood=p.R>TH.flat?1:p.R<-TH.flat?-1:0;S.moodT=Math.abs(p.R)<=TH.flat?0:1.1;if(p.item==='bomb'&&!reduced)S.shake=.6;}}
+  if(S.reveal){const rv=S.reveal;rv.t+=dt;if(rv.t>2.6){S.inv[rv.item]++;S.sessionR=Math.round((S.sessionR+rv.R)*100)/100;S.digR=Math.round((S.digR+rv.R)*100)/100;
       const best=rv.item;S.lb.forEach(r=>{if(Math.random()<.5)r[1]+=pick([5,10,25]);});S.lb.sort((a,b)=>b[1]-a[1]);chat(pick(NAMES),rv.R>0?'đỉnh quá':'tiếc ghê');
-      S.reveal=null;if(!S.ropes.length){const dd=Math.round(S.digR*8);S.chest={t:0,R:S.digR,item:itemFor(S.digR),n:S.digCount,dd};}}}
+      S.reveal=null;if(!S.ropes.length){const dd=Math.round(S.digR*.4);S.chest={t:0,R:S.digR,item:itemFor(S.digR),n:S.digCount,dd};}}}
   if(S.chest){S.chest.t+=dt;if(S.chest.t>4.2){S.depth=Math.max(100,S.depth+S.chest.dd);S.digNo++;S.chest=null;}}
   // chat + votes
   S.ct=(S.ct||0)+dt;if(S.ct>.75&&S.screen==='play'){S.ct=0;const open=S.ropes.some(r=>r.state==='down');
