@@ -70,3 +70,12 @@ Tạo cộng đồng trade quanh livestream. Game chỉ trình diễn, MT5 là n
 - Khung chat xếp top người đoán vật phẩm giỏi nhất. Top 5 được quay random để vào chơi game.
 - Điểm không mua được bằng gift. Mỗi dây một lượt đoán, khóa khi lệnh đóng. Cần chống spam và nhiều tài khoản ảo.
 - Rủi ro chính sách trung bình (đoán kết quả lệnh), cần đọc guidelines nền tảng trước.
+
+### Phần thưởng người trúng quay (CHỐT một phần)
+- Giai đoạn 1: người trúng quay xuất hiện thành nhân vật "bạn đồng hành" đứng cạnh thợ đào, kèm tên hiển thị, skin chọn từ bộ có sẵn (không mua bằng gift). Thuần giải trí.
+- Để sau (Giai đoạn 2/3): người trúng quay trade bằng tài khoản của họ hiển thị trong game. Rủi ro: nhận credential, người trúng được chọn bằng trò đoán chứ không phải kỹ năng trade, lộ dữ liệu tài khoản công khai. Hợp đồng sự kiện chừa sẵn trường `source` (`host` / `guest`).
+
+### Xác minh tài khoản viewer (ĐANG MỞ)
+- Bro đề xuất viewer inbox investor password cho bro. Claude khuyên không: rủi ro bảo mật, có thể vi phạm điều khoản sàn của viewer, mỗi tài khoản cần một terminal (không mở rộng được). Game và code KHÔNG nhận hay lưu credential của viewer.
+- Hướng thay thế cho người dùng điện thoại: viewer tự kết nối vào dịch vụ xác minh bên thứ ba (Myfxbook, FX Blue...), gửi link kết quả công khai. Cần kiểm API và điều khoản. [CHƯA KIỂM CHỨNG]
+- Quyết định khi tới Giai đoạn 3 với dữ liệu thật.
