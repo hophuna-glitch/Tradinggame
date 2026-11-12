@@ -87,3 +87,8 @@ Tạo cộng đồng trade quanh livestream. Game chỉ trình diễn, MT5 là n
 - Nền có chim bay qua và người đi qua theo chu kỳ ngẫu nhiên.
 - Skin thuần trang trí: không ảnh hưởng điểm đoán, xác suất quay hay kết quả. Bro định bán skin; cách bán và ai sở hữu skin CHƯA CHỐT.
 - Prompt art: `docs/ART_PROMPTS.md`. Mockup: `docs/mockup/gold-miner-live.html` (máy, chim, người qua đường đang là hình giữ chỗ vẽ bằng code).
+
+### Top 5 đi lại phía sau (CHỐT)
+- Top 5 người đoán trúng nhiều nhất hiện thành 5 người đi qua đi lại phía sau thợ đào, tên và thứ hạng hiện trên đầu.
+- Nhân vật random theo bộ: bạn nữ, người dắt chó, anh mặc vest, cụ già chống gậy, học sinh đeo balo... (mockup đang dùng hình giữ chỗ vẽ bằng code, cần art thật).
+- Khi bảng xếp hạng đổi, tên và thứ hạng trên đầu đổi theo; người rớt top đi ra khỏi màn, người mới đi vào.

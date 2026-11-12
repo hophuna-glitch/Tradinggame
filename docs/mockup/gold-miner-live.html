@@ -70,7 +70,7 @@ small{color:var(--mist)}
       <button data-m="2" id="m-2">Hiếm · Máy hơi nước</button>
       <button data-m="3" id="m-3">Xịn · Lõi hổ phách</button>
     </div>
-    <p><small>Máy đào, chim và người qua đường trong mockup là hình giữ chỗ vẽ bằng code, chờ art thật.</small></p>
+    <p><small>Máy đào, chim và người đi lại phía sau trong mockup là hình giữ chỗ vẽ bằng code, chờ art thật.</small></p>
 
     <h2>Khung cảnh</h2>
     <div class="row" id="weather">
@@ -245,9 +245,42 @@ function drawBirds(t){
   for(const b of S.birds){const up=Math.sin(t*11+b.ph)>0,c=S.night>.5?'#0c151b':'#16262e',x=b.x,y=b.y+Math.sin(t*2+b.ph)*4;
     px(x-4,y,9,4,c);px(x+(b.dir>0?5:-7),y-1,4,3,c);if(up){px(x-9,y-5,6,4,c);px(x+4,y-5,6,4,c);px(x-13,y-8,5,3,c);px(x+9,y-8,5,3,c);}else{px(x-9,y+2,6,4,c);px(x+4,y+2,6,4,c);}}
 }
+const PEOPLE={
+  girl:{hair:'#5a2e22',body:'#a85d6a',leg:'#e2b592',arm:'#e2b592',shoe:'#3a2a22'},
+  suit:{hair:'#1c1a1f',body:'#2a3550',leg:'#232c44',arm:'#2a3550',shoe:'#141318'},
+  dog:{hair:'#3b2a1e',body:'#5f7d3c',leg:'#39485a',arm:'#5f7d3c',shoe:'#22262b'},
+  elder:{hair:'#c9cfd0',body:'#6b6f55',leg:'#4a4638',arm:'#6b6f55',shoe:'#2a241c'},
+  student:{hair:'#2a1c16',body:'#3f7f86',leg:'#3a3f52',arm:'#3f7f86',shoe:'#e5e2d6'}};
 function drawWalkers(t){
-  for(const w of S.walkers){const im=IMG[w.skin+'_d'],sc=.76,bob=Math.abs(Math.sin(t*8+w.ph))*4;ctx.fillStyle='rgba(0,0,0,.22)';ctx.fillRect(w.x-26,GND-3,52,4);
-    ctx.save();ctx.translate(Math.round(w.x),Math.round(GND-2-bob));if(w.dir<0)ctx.scale(-1,1);ctx.rotate(Math.sin(t*8+w.ph)*.03);ctx.drawImage(im,-im.width*sc/2,-im.height*sc,im.width*sc,im.height*sc);ctx.restore();}
+  const u=3,skin='#e2b592',o='#141a1e';
+  S.walkers.forEach((w,i)=>{
+    const st=PEOPLE[w.type],d=w.dir,mov=w.pause<=0,sw=mov?Math.sin(w.wp):0,bob=mov?Math.abs(Math.cos(w.wp))*2:0;
+    const X=Math.round(w.x),Y=GND-3;
+    const P=(x,y,ww,h,c,by=bob)=>{ctx.fillStyle=c;ctx.fillRect(X+(d>0?x:-x-ww)*u,Math.round(Y-by-(y+h)*u),ww*u,h*u);};
+    ctx.fillStyle='rgba(0,0,0,.22)';ctx.fillRect(X-14,Y,28,4);
+    const l=Math.round(sw*2);
+    if(w.type==='dog'){const dx=9,wag=Math.sin(t*14)>0?1:0,dl=mov?Math.round(Math.sin(w.wp*1.6)):0;
+      P(dx-1,0,9,7,o,0);P(dx,2,7,3,'#c79a5e',0);P(dx+6,3,3,4,'#c79a5e',0);P(dx+8,5,1,2,'#8a6238',0);P(dx+8,4,2,1,o,0);P(dx-1,4+wag,1,3,'#c79a5e',0);
+      P(dx+dl,0,1,2,'#8a6238',0);P(dx+2-dl,0,1,2,'#8a6238',0);P(dx+4+dl,0,1,2,'#8a6238',0);P(dx+6-dl,0,1,2,'#8a6238',0);
+      ctx.strokeStyle='#b5533c';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(X+d*3*u,Y-bob-10*u);ctx.lineTo(X+d*(dx+6)*u,Y-5*u);ctx.stroke();}
+    P(-4,7,8,17,o);P(-3,0,6,8,o);
+    P(-2+l,0,2,8,st.leg);P(-l,0,2,8,st.leg);P(-2+l,0,3,1,st.shoe);P(-l,0,3,1,st.shoe);
+    if(w.type==='girl'){P(-3,9,6,8,st.body);P(-4,6,8,4,st.body);P(-5,10,2,12,st.hair);}
+    else P(-3,8,6,9,st.body);
+    if(w.type==='suit'){P(0,12,2,5,'#e9ece8');P(1,12,1,4,'#b5533c');P(2-l,5,4,3,'#6a4326');P(3-l,8,2,1,'#6a4326');}
+    if(w.type==='student'){P(-5,10,2,6,'#b5533c');}
+    P(-1-l,9,2,7,st.arm);
+    P(-3,17,6,6,skin);P(1,19,1,2,o);P(-3,21,6,2,st.hair);P(-3,19,1,2,st.hair);
+    if(w.type==='elder'){P(-4,22,8,1,'#3d3a30');P(-3,23,6,2,'#3d3a30');ctx.fillStyle='#6a4326';ctx.fillRect(X+d*4*u,Y-10*u,2,10*u);}
+  });
+}
+function drawWalkerTags(){
+  const u=3;S.walkers.forEach((w,i)=>{const X=Math.round(w.x),Y=GND-3;
+    const rank=S.lb.findIndex(r=>r[0]===w.name);if(rank<0)return;
+    ctx.font=F(22);const label=(rank+1)+' '+w.name,tw=ctx.measureText(label).width+16,ty=Y-26*u-74-(i%3)*28;
+    box(X-tw/2,ty,tw,26,'rgba(14,23,29,.86)',rank===0?C.amber:C.line);txt(label,X,ty+19,22,rank===0?C.amber:C.text,'center');
+    ctx.fillStyle=rank===0?C.amber:C.line;ctx.fillRect(X-1,ty+26,3,Y-26*u-ty-26);
+  });
 }
 function drawDark(t){
   const g=ctx.createLinearGradient(0,GND+150,0,GND+345);g.addColorStop(0,'rgba(5,8,13,0)');g.addColorStop(.55,'rgba(5,8,13,.82)');g.addColorStop(1,'rgba(5,8,13,.985)');
@@ -393,7 +426,7 @@ function setScreen(s){
 const NOTES={
   select:'Chọn thợ đào trước khi vào event. Bốn màu này là cùng một nhân vật đổi màu để minh họa; bản thật cần sprite riêng. Bộ này cũng dùng làm skin cho bạn đồng hành.',
   lobby:'Sảnh chờ trước giờ live: đếm ngược, kỷ lục cần phá, luật chơi trong ba dòng và dòng miễn trừ trách nhiệm cố định.',
-  play:'Gameplay. Bấm "Mở lệnh / DCA" để thả dây vào vùng tối, rồi đóng dây để kéo vật phẩm lên. Khi đóng hết dây, túi kết quả của cả lượt mở ra. Biểu đồ chỉ hiện giá, không hiện vị thế. Đổi skin máy đào để xem máy và dây thay đổi theo cấp.',
+  play:'Gameplay. Bấm "Mở lệnh / DCA" để thả dây vào vùng tối, rồi đóng dây để kéo vật phẩm lên. Khi đóng hết dây, túi kết quả của cả lượt mở ra. Biểu đồ chỉ hiện giá, không hiện vị thế. Đổi skin máy đào để xem máy và dây thay đổi theo cấp. Năm người đi lại phía sau là top 5 người đoán trúng nhiều nhất, tên và thứ hạng hiện trên đầu.',
   spin:'Sau mỗi lượt hoặc theo mốc thời gian: quay ngẫu nhiên trong top 5 người đoán giỏi nhất. Người trúng xuất hiện cạnh thợ đào với tên của họ.',
   summary:'Màn tổng kết cuối event, bố cục gọn để người xem chụp lại và chia sẻ. Kết quả tính bằng R, không hiện số tiền.'};
 
@@ -408,10 +441,9 @@ function update(dt){
   S.mAng+=dt*(S.mActive?(pulling?-8:6):(S.tier>=2&&!S.offline?1.4:0));
   if(S.tier===2&&!S.offline){S.st=(S.st||0)+dt;if(S.st>(S.mActive?.12:.4)){S.st=0;S.smoke.push({x:MX+11,y:GND-100,a:1,s:8});}}
   for(const p of S.smoke){p.y-=dt*34;p.x+=dt*(8+34*S.wind);p.a-=dt*.5;p.s+=dt*9;}S.smoke=S.smoke.filter(p=>p.a>0);
-  if(!reduced){S.bt-=dt;if(S.bt<=0){S.bt=rnd(6,11);const dir=Math.random()<.5?1:-1,n=1+Math.floor(rnd(0,3)),y=rnd(SCN+70,SCN+170);for(let i=0;i<n;i++)S.birds.push({x:(dir>0?-30:W+30)-dir*i*34,y:y+i*rnd(8,16),dir,v:rnd(95,120),ph:rnd(0,9)});}
-    S.wt-=dt;if(S.wt<=0){S.wt=rnd(11,18);const dir=Math.random()<.5?1:-1;S.walkers.push({x:dir>0?-50:W+50,dir,v:rnd(38,52),ph:rnd(0,9),skin:pick(['miner2','miner3','miner4'])});}}
+  if(!reduced){S.bt-=dt;if(S.bt<=0){S.bt=rnd(6,11);const dir=Math.random()<.5?1:-1,n=1+Math.floor(rnd(0,3)),y=rnd(SCN+70,SCN+170);for(let i=0;i<n;i++)S.birds.push({x:(dir>0?-30:W+30)-dir*i*34,y:y+i*rnd(8,16),dir,v:rnd(95,120),ph:rnd(0,9)});}}
   for(const b of S.birds)b.x+=b.dir*b.v*dt;S.birds=S.birds.filter(b=>b.x>-80&&b.x<W+80);
-  for(const w of S.walkers)w.x+=w.dir*w.v*dt;S.walkers=S.walkers.filter(w=>w.x>-80&&w.x<W+80);
+  for(const w of S.walkers){if(w.pause>0){w.pause-=dt;if(w.pause<=0){w.tx=rnd(30,786);w.dir=w.tx>w.x?1:-1;}}else{w.x+=w.dir*w.v*dt;w.wp+=dt*w.v*.17;if((w.tx-w.x)*w.dir<=0)w.pause=rnd(.8,3.5);}}
   if(S.moodT>0)S.moodT-=dt;if(S.shake>0)S.shake-=dt;
   S.scroll=lerp(S.scroll,Math.max(0,(S.depth-128)*3),1-Math.exp(-dt*2));
   if(S.screen==='spin'&&S.spin&&!S.spin.done){const sp=S.spin;sp.t+=dt;if(sp.t>=sp.next){sp.idx=(sp.idx+1)%5;sp.gap*=1.13;sp.next=sp.t+sp.gap;if(sp.gap>.5&&sp.idx===sp.target){sp.done=true;S.companion={name:S.lb[sp.idx][0],skin:pick(['miner2','miner3','miner4'])};}}}
@@ -443,7 +475,7 @@ function render(){
   drawScene(t,dt);
   drawBirds(t);drawWalkers(t);
   if(S.companion)drawMiner(t,S.companion.skin,262,true,.86,2.4);
-  drawMiner(t,MINERS[S.sel][0],372,false,1,0);drawMachine(t);
+  drawMiner(t,MINERS[S.sel][0],372,false,1,0);drawMachine(t);drawWalkerTags();
   if(S.companion){const c=S.companion;ctx.font=F(24);const w=ctx.measureText(c.name).width+20;box(262-w/2,GND-150,w,30,'rgba(14,23,29,.9)',C.amber);txt(c.name,262,GND-128,24,C.text,'center');}
   drawWeatherFront(t,dt);
   drawUnder(t);for(const r of S.ropes)drawRope(r,t);drawDark(t);
@@ -474,6 +506,7 @@ function start(){
   let p=S.price-6;for(let i=0;i<64;i++){const o=p;let h=o,l=o;for(let j=0;j<12;j++){p+=rnd(-.42,.46);h=Math.max(h,p);l=Math.min(l,p);}S.candles.push({o,h,l,c:p,n:12});}S.price=p;S.candles.push({o:p,h:p,l:p,c:p,n:0});
   for(let i=0;i<6;i++)chat(pick(NAMES),'!dao');
   press('weather','w','auto');press('tod','d','auto');press('tier','m','0');
+  ['girl','dog','suit','elder','student'].forEach((type,i)=>{const x=60+i*165+rnd(-30,30);S.walkers.push({name:S.lb[i][0],type,x,tx:rnd(30,786),dir:1,pause:rnd(0,2),wp:rnd(0,9),v:rnd(30,46)});});
   for(const k of ['miner','miner2','miner3','miner4']){const im=IMG[k],c=document.createElement('canvas');c.width=im.width;c.height=im.height;const g=c.getContext('2d');g.drawImage(im,0,0);g.globalCompositeOperation='source-atop';g.fillStyle='rgba(10,26,36,.5)';g.fillRect(0,0,c.width,c.height);IMG[k+'_d']=c;}
   const h=(location.hash||'').slice(1);setScreen(NOTES[h]?h:'select');
   if(h==='play'){openRope(1);setTimeout(()=>openRope(1),600);}

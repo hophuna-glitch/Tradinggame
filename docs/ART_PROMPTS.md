@@ -20,7 +20,7 @@ Yêu cầu chung: side view, đặt trên mặt đất bên phải thợ đào, 
 
 ## Sinh vật nền
 - **Chim:** `[Style anchor]` Small dark bird silhouette, side view, 4-frame wing flap loop, very small sprite.
-- **Người qua đường:** `[Style anchor]` Villager walking, side view, 6-frame walk cycle, muted colours so they sit behind the miner. 3 biến thể: người gánh hàng, thợ mỏ xách đèn, đứa trẻ.
+- **Người đi lại (top 5 người đoán):** `[Style anchor]` Townsperson walking, side view, chibi proportions matching the miner but about 70% of his height, 6-frame walk cycle plus 2-frame idle, muted colours so they sit behind the miner. Mỗi người một sprite sheet riêng: (1) young woman with long hair and a dress; (2) person in a hoodie walking a small dog on a leash, dog has its own 4-frame trot; (3) man in a dark suit carrying a briefcase; (4) old man with a hat and a walking cane; (5) student with a backpack. Thêm biến thể sau: người gánh hàng, thợ mỏ xách đèn.
 
 ## Tiêu chí chấm
 - Bốn máy đặt cạnh nhau phải thấy rõ thứ bậc từ thô sơ đến tinh xảo, nhưng cùng một thế giới.
