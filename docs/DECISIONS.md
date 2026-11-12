@@ -92,3 +92,8 @@ Tạo cộng đồng trade quanh livestream. Game chỉ trình diễn, MT5 là n
 - Top 5 người đoán trúng nhiều nhất hiện thành 5 người đi qua đi lại phía sau thợ đào, tên và thứ hạng hiện trên đầu.
 - Nhân vật random theo bộ: bạn nữ, người dắt chó, anh mặc vest, cụ già chống gậy, học sinh đeo balo... (mockup đang dùng hình giữ chỗ vẽ bằng code, cần art thật).
 - Khi bảng xếp hạng đổi, tên và thứ hạng trên đầu đổi theo; người rớt top đi ra khỏi màn, người mới đi vào.
+
+### Nhân vật chính "Tài xế" thay thợ đào (tạm)
+- Thợ đào mũ đỏ được thay bằng nhân vật tóc đen, áo khoác xanh kiểu tài xế giao hàng (không logo), vẫn đeo cuộn dây trên vai.
+- Animation xoay tay quay tạm dùng bộ 8 frame `assets/main-character/rider-crank/` (ô đầu hàng trên của mỗi file xuất). Còn hạn chế: tay chưa vẽ vòng tròn rõ, vài frame có lông mày, cỡ lớn hơn các nhân vật khác. Cần tạo lại theo prompt Animate mới trong `docs/ART_PROMPTS.md` khi có thời gian.
+- Trong mockup, frame được chọn theo góc quay của tay quay; khi không có lệnh thì đứng idle (frame 1).
