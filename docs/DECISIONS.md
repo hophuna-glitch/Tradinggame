@@ -45,3 +45,28 @@ Tạo cộng đồng trade quanh livestream. Game chỉ trình diễn, MT5 là n
 2. Điểm dừng rủi ro: lấy lỗ tối đa hay số lệnh tối đa mỗi buổi, ngưỡng bao nhiêu?
 3. MT5 lấy dữ liệu ở Mac (investor) hay VPS?
 4. Phiên bản Godot đang cài?
+
+## Cập nhật 12/11/2026 (phiên tiếp theo)
+
+### Lệnh tay và cách gom lượt đào (CHỐT)
+- Bro chỉ trade tay: lệnh đơn, DCA (thêm cùng chiều), lệnh ngược.
+- 1 lượt đào = từ lúc phẳng (không có vị thế XAUUSD) đến lúc phẳng lại. `dig_id` do game gán, MT5 chỉ báo vị thế (`position_id`).
+- Mỗi vị thế = một dây thả xuống. Lệnh ngược khác màu, thả phía đối diện. Hiển thị tối đa ~5 dây, phần còn lại gộp thành dây "bó".
+- Cần kiểm: tài khoản Exness là hedging hay netting. [CHƯA KIỂM CHỨNG]
+
+### Vùng tối và khui vật phẩm (CHỐT)
+- Dây chìm vào vùng tối, không hiện vàng/bom. Độ dài dây theo thời gian lệnh mở, không theo giá. Bỏ cơ chế "móc trôi theo floating P/L".
+- Gợi ý mờ cho dây (rung nhẹ / đèn ấm), không lộ vật phẩm.
+- Đóng một vị thế: kéo dây lên, khui vật phẩm theo P/L thật. Phẳng hoàn toàn: khui rương kết quả của cả lượt. Nhiều dây đóng cùng lúc thì xếp hàng khui.
+- Công khai bảng quy đổi ngưỡng R -> vật phẩm. Khi khui hiện giờ đóng và P/L theo MT5. Game không đổi kết quả.
+- DCA không được tôn vinh: thanh "áp lực hầm" tăng theo số lần DCA, lượt DCA lỗ nặng có animation sập hầm rõ ràng.
+
+### Giao diện (CHỐT)
+- Bỏ khung MT5 trên stream. Biểu đồ giá XAUUSD nằm trong game (vẽ từ tick MT5).
+- Biểu đồ chỉ hiện giá, KHÔNG hiện entry, SL/TP, lot, vị thế hay P/L, để giữ bí ẩn và riêng tư. HUD không hiện P/L đang chạy, chỉ hiện sau khi đóng.
+- Cần thêm sự kiện `chart.history` (nến lịch sử khi kết nối).
+
+### Đoán vật phẩm và bảng xếp hạng (CHỐT, chi tiết chờ thiết kế)
+- Khung chat xếp top người đoán vật phẩm giỏi nhất. Top 5 được quay random để vào chơi game.
+- Điểm không mua được bằng gift. Mỗi dây một lượt đoán, khóa khi lệnh đóng. Cần chống spam và nhiều tài khoản ảo.
+- Rủi ro chính sách trung bình (đoán kết quả lệnh), cần đọc guidelines nền tảng trước.
