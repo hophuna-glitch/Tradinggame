@@ -26,3 +26,12 @@ Yêu cầu chung: side view, đặt trên mặt đất bên phải thợ đào, 
 - Bốn máy đặt cạnh nhau phải thấy rõ thứ bậc từ thô sơ đến tinh xảo, nhưng cùng một thế giới.
 - Thu nhỏ còn khoảng 64px vẫn nhận ra máy nào.
 - Màu ấm (amber) chỉ dùng cho vàng, lửa và lõi máy cấp cao.
+
+## SpriteCook Full Pack (51) — prompt ô "describe your own style"
+Thể loại chọn sẵn: Platformer + Metroidvania (đều là side view, hợp game).
+
+**Bản ngắn (nếu ô giới hạn ký tự):**
+Cozy hi-bit 16-bit pixel art, side-view cross-section of a mossy underground gold mine, misty teal twilight forest with white-trunk trees, brown brick earth draped in bright moss, dark slate caves, warm amber glow only on gold, lanterns and furnaces, chibi miners with big heads, soft dark outlines, quiet moody palette
+
+**Bản đầy đủ:**
+Hi-bit 16-bit pixel art for a side-view gold mining game, shown as a cross-section diorama of a mine under a forest. Misty desaturated teal twilight sky, layered silhouette forest, tall white-trunk trees with round mossy-green canopies. Thick bright moss and hanging vines draped over warm brown brick-textured earth; below it red-brown clay, dark slate stone caves with cool blue-grey highlights, and deep violet crystal rock. Warm amber and orange used only for gold, lanterns and furnace fire. Chibi characters about two heads tall with big heads, simple dot eyes, readable silhouettes. Clean hand-placed pixels, soft selective dark outlines, flat orthographic side view, no perspective. 32x32 tiles, characters about 48px tall, transparent backgrounds, no text. Quiet, cozy, moody, restrained.
