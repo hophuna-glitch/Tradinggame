@@ -79,3 +79,11 @@ Tạo cộng đồng trade quanh livestream. Game chỉ trình diễn, MT5 là n
 - Bro đề xuất viewer inbox investor password cho bro. Claude khuyên không: rủi ro bảo mật, có thể vi phạm điều khoản sàn của viewer, mỗi tài khoản cần một terminal (không mở rộng được). Game và code KHÔNG nhận hay lưu credential của viewer.
 - Hướng thay thế cho người dùng điện thoại: viewer tự kết nối vào dịch vụ xác minh bên thứ ba (Myfxbook, FX Blue...), gửi link kết quả công khai. Cần kiểm API và điều khoản. [CHƯA KIỂM CHỨNG]
 - Quyết định khi tới Giai đoạn 3 với dữ liệu thật.
+
+### Máy đào và skin (CHỐT hướng, chi tiết bán skin còn mở)
+- Thêm máy đào (tời) cạnh thợ đào, có 4 cấp skin: Tời gỗ quay tay → Tời sắt bánh răng → Máy hơi nước → Lõi hổ phách.
+- Dây đổi theo cấp máy: dây thừng → cáp thép → xích sắt → xích vàng. Hai chiều lệnh vẫn phân biệt bằng tông màu (ấm / lạnh), không ghi BUY/SELL.
+- Animation theo cấp: máy thô thợ đào quay tay; máy xịn tự chạy bằng cơ khí.
+- Nền có chim bay qua và người đi qua theo chu kỳ ngẫu nhiên.
+- Skin thuần trang trí: không ảnh hưởng điểm đoán, xác suất quay hay kết quả. Bro định bán skin; cách bán và ai sở hữu skin CHƯA CHỐT.
+- Prompt art: `docs/ART_PROMPTS.md`. Mockup: `docs/mockup/gold-miner-live.html` (máy, chim, người qua đường đang là hình giữ chỗ vẽ bằng code).
